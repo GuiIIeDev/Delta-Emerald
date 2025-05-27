@@ -266,8 +266,13 @@ extern const u8 gText_OptionMenu[];
 extern const u8 gText_TextSpeed[];
 extern const u8 gText_BattleScene[];
 extern const u8 gText_BattleStyle[];
+extern const u8 gText_MoveInfo[];
+extern const u8 gText_BikeMusic[];
+extern const u8 gText_SurfMusic[];
+extern const u8 gText_Sound[];
 extern const u8 gText_Sound[];
 extern const u8 gText_Frame[];
+extern const u8 gText_OptionMenuSave[];
 extern const u8 gText_OptionMenuCancel[];
 extern const u8 gText_ButtonMode[];
 
