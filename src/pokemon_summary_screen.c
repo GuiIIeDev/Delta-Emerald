@@ -1749,12 +1749,12 @@ static bool8 DecompressGraphics(void)
         break;
     case 12:
     #if P_SUMMARY_SCREEN_NEW_TYPE_ICONS == TRUE
-        LoadCompressedPalette(gMoveTypes_Pal_New, OBJ_PLTT_ID(13), 3 * PLTT_SIZE_4BPP);
+        LoadPalette(gMoveTypes_Pal_New, OBJ_PLTT_ID(13), 3 * PLTT_SIZE_4BPP);
     #else
-        LoadCompressedPalette(gMoveTypes_Pal, OBJ_PLTT_ID(13), 3 * PLTT_SIZE_4BPP);
+        LoadPalette(gMoveTypes_Pal, OBJ_PLTT_ID(13), 3 * PLTT_SIZE_4BPP);
     #endif
         if (P_SUMMARY_SCREEN_NEW_TERA_TYPE_ICONS == TRUE)
-            LoadCompressedSpriteSheet(&gSpriteSheet_TeraType);
+        LoadCompressedSpriteSheet(&gSpriteSheet_TeraType);
         LoadCompressedSpriteSheet(&gSpriteSheet_CategoryIcons);
         LoadSpritePalette(&gSpritePal_CategoryIcons);
         sMonSummaryScreen->switchCounter = 0;

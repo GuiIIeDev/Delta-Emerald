@@ -1685,10 +1685,11 @@ const u32 gCategoryIcons_Gfx[] = INCBIN_U32("graphics/interface/category_icons.4
 
 #if P_SUMMARY_SCREEN_NEW_TYPE_ICONS
 const u32 gMoveTypes_Gfx_New[] = INCBIN_U32("graphics/types_new/move_types_new.4bpp.lz");
-const u32 gMoveTypes_Pal_New[] = INCBIN_U32("graphics/types_new/move_types_new.gbapal.lz");
+const u16 gMoveTypes_Pal_New[] = INCBIN_U16("graphics/types_new/move_types_new.gbapal");
 #else
 const u32 gMoveTypes_Gfx[] = INCBIN_U32("graphics/types/move_types.4bpp.lz");
 const u16 gMoveTypes_Pal[] = INCBIN_U16("graphics/types/move_types.gbapal");
+#endif
 
 const u32 gSummaryMoveSelect_Gfx[] = INCBIN_U32("graphics/summary_screen/move_select.4bpp.lz");
 const u16 gSummaryMoveSelect_Pal[] = INCBIN_U16("graphics/summary_screen/move_select.gbapal");
