@@ -2311,7 +2311,7 @@ static void CancellerProtean(u32 *effect)
     u32 moveType = GetBattleMoveType(gCurrentMove);
     if (ProteanTryChangeType(gBattlerAttacker, GetBattlerAbility(gBattlerAttacker), gCurrentMove, moveType))
     {
-        if (B_PROTEAN_LIBERO == GEN_9)
+        if (GetGenConfig(GEN_PROTEAN_LIBERO) >= GEN_9)
             gDisableStructs[gBattlerAttacker].usedProteanLibero = TRUE;
         PREPARE_TYPE_BUFFER(gBattleTextBuff1, moveType);
         gBattlerAbility = gBattlerAttacker;
@@ -3785,12 +3785,12 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
             }
             break;
         case ABILITY_SNOW_WARNING:
-            if (B_SNOW_WARNING >= GEN_9 && TryChangeBattleWeather(battler, BATTLE_WEATHER_SNOW, TRUE))
+            if (GetGenConfig(GEN_SNOW_WARNING) >= GEN_9 && TryChangeBattleWeather(battler, BATTLE_WEATHER_SNOW, TRUE))
             {
                 BattleScriptPushCursorAndCallback(BattleScript_SnowWarningActivatesSnow);
                 effect++;
             }
-            else if (B_SNOW_WARNING < GEN_9 && TryChangeBattleWeather(battler, BATTLE_WEATHER_HAIL, TRUE))
+            else if (GetGenConfig(GEN_SNOW_WARNING) < GEN_9 && TryChangeBattleWeather(battler, BATTLE_WEATHER_HAIL, TRUE))
             {
                 BattleScriptPushCursorAndCallback(BattleScript_SnowWarningActivatesHail);
                 effect++;
@@ -3890,7 +3890,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
             {
                 gBattleScripting.savedBattler = gBattlerAttacker;
                 gBattlerAttacker = battler;
-                if (B_INTREPID_SWORD == GEN_9)
+                if (GetGenConfig(GEN_INTREPID_SWORD) >= GEN_9)
                     gBattleStruct->partyState[GetBattlerSide(battler)][gBattlerPartyIndexes[battler]].intrepidSwordBoost = TRUE;
                 gSpecialStatuses[battler].switchInAbilityDone = TRUE;
                 SET_STATCHANGER(STAT_ATK, 1, FALSE);
@@ -3904,7 +3904,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
             {
                 gBattleScripting.savedBattler = gBattlerAttacker;
                 gBattlerAttacker = battler;
-                if (B_DAUNTLESS_SHIELD == GEN_9)
+                if (GetGenConfig(GEN_DAUNTLESS_SHIELD) >= GEN_9)
                     gBattleStruct->partyState[GetBattlerSide(battler)][gBattlerPartyIndexes[battler]].dauntlessShieldBoost = TRUE;
                 gSpecialStatuses[battler].switchInAbilityDone = TRUE;
                 SET_STATCHANGER(STAT_DEF, 1, FALSE);
@@ -7155,10 +7155,8 @@ u32 ItemBattleEffects(enum ItemCaseId caseID, u32 battler, bool32 moveTurn)
         case HOLD_EFFECT_LIFE_ORB:
             if (IsBattlerAlive(gBattlerAttacker)
                 && !(gHitMarker & HITMARKER_UNABLE_TO_USE_MOVE)
-                && !IsBattleMoveStatus(gCurrentMove)
-                && (IsBattlerTurnDamaged(gBattlerTarget) || !(gBattleStruct->moveResultFlags[gBattlerTarget] & MOVE_RESULT_NO_EFFECT)) // Needs the second check in case of Substitute
+                && (IsBattlerTurnDamaged(gBattlerTarget) || gBattleScripting.savedDmg > 0)
                 && GetBattlerAbility(gBattlerAttacker) != ABILITY_MAGIC_GUARD
-                && !gProtectStructs[gBattlerAttacker].confusionSelfDmg
                 && !IsFutureSightAttackerInParty(gBattlerAttacker, gBattlerTarget, gCurrentMove))
             {
                 gBattleStruct->moveDamage[gBattlerAttacker] = GetNonDynamaxMaxHP(gBattlerAttacker) / 10;
@@ -8157,7 +8155,7 @@ static inline u32 CalcMoveBasePower(struct DamageCalculationData *damageCalcData
         basePower = gBattleMons[battlerDef].hp * basePower / gBattleMons[battlerDef].maxHP;
         break;
     case EFFECT_ASSURANCE:
-        if (gProtectStructs[battlerDef].physicalDmg != 0 || gProtectStructs[battlerDef].specialDmg != 0 || gProtectStructs[battlerDef].confusionSelfDmg)
+        if (gProtectStructs[battlerDef].assuranceDoubled)
             basePower *= 2;
         break;
     case EFFECT_TRUMP_CARD:
@@ -9495,7 +9493,7 @@ static inline s32 DoFixedDamageMoveCalc(struct DamageCalculationData *damageCalc
         dmg = gBattleMons[damageCalcData->battlerAtk].level;
         break;
     case EFFECT_PSYWAVE:
-        randDamage = B_PSYWAVE_DMG >= GEN_6 ? (Random() % 101) : ((Random() % 11) * 10);
+        randDamage = B_PSYWAVE_DMG >= GEN_5 ? (Random() % 101) : ((Random() % 11) * 10);
         dmg = gBattleMons[damageCalcData->battlerAtk].level * (randDamage + 50) / 100;
         break;
     case EFFECT_FIXED_DAMAGE_ARG:
@@ -10889,7 +10887,7 @@ u16 GetUsedHeldItem(u32 battler)
 bool32 CantPickupItem(u32 battler)
 {
     // Used by RandomUniformExcept() for RNG_PICKUP
-    if (battler == gBattlerAttacker && (B_PICKUP_WILD < GEN_9 || gBattleTypeFlags & (BATTLE_TYPE_TRAINER | BATTLE_TYPE_LINK)))
+    if (battler == gBattlerAttacker && (GetGenConfig(GEN_PICKUP_WILD) < GEN_9 || gBattleTypeFlags & (BATTLE_TYPE_TRAINER | BATTLE_TYPE_LINK)))
         return TRUE;
     return !(IsBattlerAlive(battler) && GetUsedHeldItem(battler) && gBattleStruct->battlerState[battler].canPickupItem);
 }
