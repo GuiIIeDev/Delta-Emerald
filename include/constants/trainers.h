@@ -84,7 +84,7 @@
 #define TRAINER_PIC_SWIMMER_F             66
 #define TRAINER_PIC_TWINS                 67
 #define TRAINER_PIC_SAILOR                68
-#define TRAINER_PIC_MAGMA_ADMIN           69
+#define TRAINER_PIC_MAGMA_ADMIN_M         69
 #define TRAINER_PIC_WALLY                 70
 #define TRAINER_PIC_BRENDAN               71
 #define TRAINER_PIC_MAY                   72
@@ -108,7 +108,8 @@
 #define TRAINER_PIC_LEAF                  90
 #define TRAINER_PIC_RS_BRENDAN            91
 #define TRAINER_PIC_RS_MAY                92
-#define TRAINER_PIC_COUNT                 93
+#define TRAINER_PIC_MAGMA_ADMIN_F         93
+#define TRAINER_PIC_COUNT                 94
 
 // The player back pics are assumed to alternate according to the gender values (MALE/FEMALE)
 #define TRAINER_BACK_PIC_BRENDAN                0
@@ -333,25 +334,24 @@
 #define TRAINER_CLASS_SWIMMER_F      0x2d
 #define TRAINER_CLASS_TWINS          0x2e
 #define TRAINER_CLASS_SAILOR         0x2f
-#define TRAINER_CLASS_COOLTRAINER_2  0x30 // Used for only one trainer.
-#define TRAINER_CLASS_MAGMA_ADMIN    0x31
-#define TRAINER_CLASS_RIVAL          0x32
-#define TRAINER_CLASS_BUG_CATCHER    0x33
-#define TRAINER_CLASS_PKMN_RANGER    0x34
-#define TRAINER_CLASS_MAGMA_LEADER   0x35
-#define TRAINER_CLASS_LASS           0x36
-#define TRAINER_CLASS_YOUNG_COUPLE   0x37
-#define TRAINER_CLASS_OLD_COUPLE     0x38
-#define TRAINER_CLASS_SIS_AND_BRO    0x39
-#define TRAINER_CLASS_SALON_MAIDEN   0x3a
-#define TRAINER_CLASS_DOME_ACE       0x3b
-#define TRAINER_CLASS_PALACE_MAVEN   0x3c
-#define TRAINER_CLASS_ARENA_TYCOON   0x3d
-#define TRAINER_CLASS_FACTORY_HEAD   0x3e
-#define TRAINER_CLASS_PIKE_QUEEN     0x3f
-#define TRAINER_CLASS_PYRAMID_KING   0x40
-#define TRAINER_CLASS_RS_PROTAG      0x41
-#define TRAINER_CLASS_COUNT          0x42
+#define TRAINER_CLASS_MAGMA_ADMIN    0x30
+#define TRAINER_CLASS_RIVAL          0x31
+#define TRAINER_CLASS_BUG_CATCHER    0x32
+#define TRAINER_CLASS_PKMN_RANGER    0x33
+#define TRAINER_CLASS_MAGMA_LEADER   0x34
+#define TRAINER_CLASS_LASS           0x35
+#define TRAINER_CLASS_YOUNG_COUPLE   0x36
+#define TRAINER_CLASS_OLD_COUPLE     0x37
+#define TRAINER_CLASS_SIS_AND_BRO    0x38
+#define TRAINER_CLASS_SALON_MAIDEN   0x39
+#define TRAINER_CLASS_DOME_ACE       0x3a
+#define TRAINER_CLASS_PALACE_MAVEN   0x3b
+#define TRAINER_CLASS_ARENA_TYCOON   0x3c
+#define TRAINER_CLASS_FACTORY_HEAD   0x3d
+#define TRAINER_CLASS_PIKE_QUEEN     0x3e
+#define TRAINER_CLASS_PYRAMID_KING   0x3f
+#define TRAINER_CLASS_RS_PROTAG      0x40
+#define TRAINER_CLASS_COUNT          0x41
 
 #define TRAINER_ENCOUNTER_MUSIC_MALE         0 // standard male encounter music
 #define TRAINER_ENCOUNTER_MUSIC_FEMALE       1 // standard female encounter music

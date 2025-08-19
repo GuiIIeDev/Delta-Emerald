@@ -22936,7 +22936,7 @@ F_TRAINER_FEMALE |
 #line 9185
         .trainerName = _("JAZMYN"),
 #line 9186
-        .trainerClass = TRAINER_CLASS_COOLTRAINER_2,
+        .trainerClass = TRAINER_CLASS_COOLTRAINER,
 #line 9187
         .trainerPic = TRAINER_PIC_COOLTRAINER_F,
         .encounterMusic_gender =
@@ -23389,7 +23389,7 @@ F_TRAINER_FEMALE |
 #line 9367
         .trainerClass = TRAINER_CLASS_MAGMA_ADMIN,
 #line 9368
-        .trainerPic = TRAINER_PIC_MAGMA_ADMIN,
+        .trainerPic = TRAINER_PIC_MAGMA_ADMIN_M,
         .encounterMusic_gender =
 #line 9370
             TRAINER_ENCOUNTER_MUSIC_MAGMA,
@@ -27393,7 +27393,7 @@ F_TRAINER_FEMALE |
 #line 10928
         .trainerClass = TRAINER_CLASS_MAGMA_ADMIN,
 #line 10929
-        .trainerPic = TRAINER_PIC_MAGMA_ADMIN,
+        .trainerPic = TRAINER_PIC_MAGMA_ADMIN_M,
         .encounterMusic_gender =
 #line 10931
             TRAINER_ENCOUNTER_MUSIC_MAGMA,
@@ -33807,7 +33807,7 @@ F_TRAINER_FEMALE |
 #line 13488
         .trainerClass = TRAINER_CLASS_MAGMA_ADMIN,
 #line 13489
-        .trainerPic = TRAINER_PIC_MAGMA_ADMIN,
+        .trainerPic = TRAINER_PIC_MAGMA_ADMIN_M,
         .encounterMusic_gender =
 #line 13491
             TRAINER_ENCOUNTER_MUSIC_MAGMA,

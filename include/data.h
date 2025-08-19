@@ -5,6 +5,7 @@
 #include "constants/trainers.h"
 #include "constants/battle.h"
 #include "difficulty.h"
+#include "global.h"
 
 #define MAX_TRAINER_ITEMS 4
 
@@ -108,7 +109,7 @@ struct Trainer
 
 struct TrainerClass
 {
-    u8 name[13];
+    u8 name[TRAINER_CLASS_LENGTH];
     u8 money;
     u16 ball;
 };

@@ -9183,7 +9183,7 @@ IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
 
 === TRAINER_JAZMYN ===
 Name: JAZMYN
-Class: Cooltrainer 2
+Class: Cooltrainer
 Pic: Cooltrainer F
 Gender: Female
 Music: Cool
@@ -9365,7 +9365,7 @@ IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
 === TRAINER_TABITHA_MOSSDEEP ===
 Name: TABITHA
 Class: Magma Admin
-Pic: Magma Admin
+Pic: Magma Admin M
 Gender: Male
 Music: Magma
 Double Battle: No
@@ -10926,7 +10926,7 @@ IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
 === TRAINER_TABITHA_MT_CHIMNEY ===
 Name: TABITHA
 Class: Magma Admin
-Pic: Magma Admin
+Pic: Magma Admin M
 Gender: Male
 Music: Magma
 Double Battle: No
@@ -13486,7 +13486,7 @@ IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
 === TRAINER_TABITHA_MAGMA_HIDEOUT ===
 Name: TABITHA
 Class: Magma Admin
-Pic: Magma Admin
+Pic: Magma Admin M
 Gender: Male
 Music: Magma
 Double Battle: No
