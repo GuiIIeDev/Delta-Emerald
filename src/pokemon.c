@@ -2958,6 +2958,27 @@ void SetMonData(struct Pokemon *mon, s32 field, const void *dataArg)
     case MON_DATA_MAIL:
         SET8(mon->mail);
         break;
+    case MON_DATA_SPECIES:
+    {
+        // --- Custom evolution logic for Shelmet -> Accelgor ---
+        u16 oldSpecies = GetMonData(mon, MON_DATA_SPECIES, NULL);
+
+        // Apply the new species to the BoxMon (normal behavior)
+        SetBoxMonData(&mon->box, field, dataArg);
+
+        u16 newSpecies = *(const u16 *)dataArg;
+
+        if (oldSpecies == SPECIES_SHELMET && newSpecies == SPECIES_ACCELGOR)
+        {
+            u16 held = GetMonData(mon, MON_DATA_HELD_ITEM, NULL);
+            if (held == ITEM_NONE)
+            {
+                u16 metalCoat = ITEM_METAL_COAT;
+                SetMonData(mon, MON_DATA_HELD_ITEM, &metalCoat);
+            }
+        }
+        break;
+    }
     case MON_DATA_SPECIES_OR_EGG:
         break;
     default:
