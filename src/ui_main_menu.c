@@ -832,7 +832,7 @@ static const u8 sText_DexNum[] = _("{POKE}dex: {STR_VAR_1}");
 static const u8 sText_Badges[] = _("Badges:  {STR_VAR_1}");
 static void PrintToWindow(u8 windowId, u8 colorIdx)
 {
-    const u8 colors[3] = {0,  2,  3}; 
+    const u8 colors[3] = {TEXT_COLOR_TRANSPARENT, TEXT_COLOR_WHITE, TEXT_COLOR_LIGHT_GRAY}; 
     u8 mapDisplayHeader[24];
     u8 *withoutPrefixPtr, *playTimePtr;
     u16 dexCount = 0; u8 badgeCount = 0;
