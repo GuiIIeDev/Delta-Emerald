@@ -77,7 +77,6 @@ static void NewStartMenu_CreateSprites(void);
 static void NewStartMenu_SafariZone_CreateSprites(void);
 static void NewStartMenu_LoadBgGfx(void);
 static void NewStartMenu_ShowTimeWindow(void);
-static void NewStartMenu_UpdateClockDisplay(void);
 static void NewStartMenu_UpdateMenuName(void);
 static u8 RunSaveCallback(void);
 static u8 SaveDoSaveCallback(void);
@@ -85,7 +84,6 @@ static void HideSaveInfoWindow(void);
 static void HideSaveMessageWindow(void);
 static u8 SaveOverwriteInputCallback(void);
 static u8 SaveConfirmOverwriteDefaultNoCallback(void);
-static u8 SaveConfirmOverwriteCallback(void);
 static void ShowSaveMessage(const u8 *message, u8 (*saveCallback)(void));
 static u8 SaveFileExistsCallback(void);
 static u8 SaveSavingMessageCallback(void);
@@ -765,44 +763,26 @@ static void NewStartMenu_ShowTimeWindow(void)
 	CopyWindowToVram(sNewStartMenu->sStartClockWindowId, COPYWIN_GFX);
 }
 
-static void NewStartMenu_UpdateClockDisplay(void)
-{
-    u8 analogHour;
-
-	if (!FlagGet(FLAG_TEMP_5))
-		return;
-	RtcCalcLocalTime();
-    analogHour = (gLocalTime.hours >= 13 && gLocalTime.hours <= 24) ? gLocalTime.hours - 12 : gLocalTime.hours;
-    
-	StringCopy(gStringVar3, gDayNameStringsTable[(gLocalTime.days % 7)]);
-    ConvertIntToDecimalStringN(gStringVar1, gLocalTime.hours, STR_CONV_MODE_LEADING_ZEROS, 2);
-	ConvertIntToDecimalStringN(gStringVar2, gLocalTime.minutes, STR_CONV_MODE_LEADING_ZEROS, 2);
-	    ConvertIntToDecimalStringN(gStringVar1, analogHour, STR_CONV_MODE_LEADING_ZEROS, 2);
-    if (gLocalTime.hours == 0)
-		ConvertIntToDecimalStringN(gStringVar1, 12, STR_CONV_MODE_LEADING_ZEROS, 2);
-    if (gLocalTime.hours == 12)
-		ConvertIntToDecimalStringN(gStringVar1, 12, STR_CONV_MODE_LEADING_ZEROS, 2);
-
-	if (gLocalTime.seconds % 2)
-	{
-        StringExpandPlaceholders(gStringVar4, gText_CurrentTime);
-            if (gLocalTime.hours >= 12 && gLocalTime.hours <= 24)
-                StringExpandPlaceholders(gStringVar4, gText_CurrentTimePM); 
-            else
-                StringExpandPlaceholders(gStringVar4, gText_CurrentTimeAM);  
-    }
-	else
-	{
-        StringExpandPlaceholders(gStringVar4, gText_CurrentTimeOff);
-            if (gLocalTime.hours >= 12 && gLocalTime.hours <= 24)
-                StringExpandPlaceholders(gStringVar4, gText_CurrentTimePMOff); 
-            else
-                StringExpandPlaceholders(gStringVar4, gText_CurrentTimeAMOff);  
-    }
-    
-	AddTextPrinterParameterized(sNewStartMenu->sStartClockWindowId, 1, gStringVar4, 0, 1, 0xFF, NULL);
-	CopyWindowToVram(sNewStartMenu->sStartClockWindowId, COPYWIN_GFX);
-}
+// static void NewStartMenu_UpdateClockDisplay(void)
+// {
+//     u8 analogHour;
+//
+//     if (!FlagGet(FLAG_TEMP_5))
+//         return;
+//     RtcCalcLocalTime();
+//     analogHour = (gLocalTime.hours >= 13 && gLocalTime.hours <= 24) ? gLocalTime.hours - 12 : gLocalTime.hours;
+//     StringCopy(gStringVar3, gDayNameStringsTable[(gLocalTime.days % 7)]);
+//     ConvertIntToDecimalStringN(gStringVar1, gLocalTime.hours, STR_CONV_MODE_LEADING_ZEROS, 2);
+//     ConvertIntToDecimalStringN(gStringVar2, gLocalTime.minutes, STR_CONV_MODE_LEADING_ZEROS, 2);
+//     ConvertIntToDecimalStringN(gStringVar1, analogHour, STR_CONV_MODE_LEADING_ZEROS, 2);
+//     StringExpandPlaceholders(gStringVar4, gText_CurrentTime);
+//     if (gLocalTime.hours >= 13 && gLocalTime.hours <= 24)
+//         StringExpandPlaceholders(gStringVar4, gText_CurrentTimePM); 
+//     else
+//         StringExpandPlaceholders(gStringVar4, gText_CurrentTimeAM);  
+//     AddTextPrinterParameterized(sNewStartMenu->sStartClockWindowId, 1, gStringVar4, 0, 1, 0xFF, NULL);
+//     CopyWindowToVram(sNewStartMenu->sStartClockWindowId, COPYWIN_GFX);
+// }
 
 static const u8 gText_Poketch[] = _("   DexNav");
 static const u8 gText_Pokedex[] = _("  Pokédex");
@@ -1097,13 +1077,6 @@ static u8 SaveConfirmOverwriteDefaultNoCallback(void)
     return SAVE_IN_PROGRESS;
 }
 
-static u8 SaveConfirmOverwriteCallback(void)
-{
-    DisplayYesNoMenuDefaultYes(); // Show Yes/No menu
-    sSaveDialogCallback = SaveOverwriteInputCallback;
-    return SAVE_IN_PROGRESS;
-}
-
 static void ShowSaveMessage(const u8 *message, u8 (*saveCallback)(void)) {
     StringExpandPlaceholders(gStringVar4, message);
     LoadMessageBoxAndFrameGfx(0, TRUE);
@@ -1174,8 +1147,6 @@ static void ShowSaveInfoWindow(void) {
     u8 color;
     u32 xOffset;
     u32 yOffset;
-    const u8 *suffix;
-    u8 *alignedSuffix = gStringVar3;
 
     if (!FlagGet(FLAG_SYS_POKEDEX_GET))
     {
@@ -1272,14 +1243,14 @@ static void Task_HandleSave(u8 taskId) {
   }
 }
 
-#define STD_WINDOW_BASE_TILE_NUM 0x21A
+#define START_MENU_WINDOW_BASE_TILE_NUM 0x21A
 #define STD_WINDOW_PALETTE_NUM 14
 
 static void DoCleanUpAndStartSaveMenu(void) {
   if (!gPaletteFade.active) {
     NewStartMenu_ExitAndClearTilemap();
     FreezeObjectEvents();
-    LoadUserWindowBorderGfx(sSaveInfoWindowId, STD_WINDOW_BASE_TILE_NUM, BG_PLTT_ID(STD_WINDOW_PALETTE_NUM));
+  LoadUserWindowBorderGfx(sSaveInfoWindowId, START_MENU_WINDOW_BASE_TILE_NUM, BG_PLTT_ID(STD_WINDOW_PALETTE_NUM));
     LockPlayerFieldControls();
     DestroyTask(FindTaskIdByFunc(Task_NewStartMenu_HandleMainInput));
     InitSave();
